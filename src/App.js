@@ -1,22 +1,19 @@
 import React from "react";
+import { HashRouter } from "react-router-dom";
 
-import { Container } from "./style.js";
+import Router from "./Router";
 
 export default function App() {
   return (
-    <Container className="App">
-      <header className="App-header">
-        <h1>VUTTR</h1>
+    <div className="container">
+      <HashRouter>
+        <header className="App-header my-5">
+          <h1 className="font-weight-bold">VUTTR</h1>
+          <h2 className="text-muted">Very Useful Tools to Remember</h2>
+        </header>
 
-        <h2>Very Useful Tools to Remember</h2>
-      </header>
-
-      <div>
-        <input type="text" name="search" />
-        <input type="checkbox" name="onlyTags" />
-
-        <button>+ Add</button>
-      </div>
-    </Container>
+        <Router />
+      </HashRouter>
+    </div>
   );
 }
