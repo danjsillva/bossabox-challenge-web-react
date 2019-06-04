@@ -35,16 +35,16 @@ api.interceptors.response.use(
     return response;
   },
   async error => {
-    document.body.classList.remove("loading-indicator");
+    // document.body.classList.remove("loading-indicator");
 
-    if (
-      error.response.status === 401 &&
-      !window.location.href.includes("/login")
-    ) {
-      alert("Sessão expirada! Faça login e tente novamente.");
+    // if (
+    //   error.response.status === 401 &&
+    //   !window.location.href.includes("/login")
+    // ) {
+    //   alert("Sessão expirada! Faça login e tente novamente.");
 
-      window.location.hash = "#/login";
-    }
+    //   window.location.hash = "#/login";
+    // }
 
     return Promise.reject(error);
   }
