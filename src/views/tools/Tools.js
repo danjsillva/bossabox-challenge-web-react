@@ -81,7 +81,7 @@ export default function Tools(props) {
     setModalAddOpen(false);
   };
 
-  const handleRemoverClick = tool => {
+  const handleRemoveClick = tool => {
     setTool(tool);
     setModalRemoveOpen(true);
   };
@@ -112,8 +112,8 @@ export default function Tools(props) {
         <div className="col-4">
           <label className="form-check mt-2">
             <input
-              className="form-check-input"
               type="checkbox"
+              className="form-check-input"
               value={isTagsOnly}
               onChange={e => handleIsTagsOnlyChange(e)}
             />
@@ -151,7 +151,7 @@ export default function Tools(props) {
             key={tool.title + index}
             tool={tool}
             index={index}
-            onRemoverClick={tool => handleRemoverClick(tool)}
+            onRemoveClick={tool => handleRemoveClick(tool)}
           />
         ))}
     </>
