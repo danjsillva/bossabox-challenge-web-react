@@ -1,39 +1,64 @@
 import React, { useState, useEffect } from "react";
 
-import API from "../../config/api";
+import Tool from "./Tool";
+import ModalAdd from "./ModalAdd";
+import ModalRemove from "./ModalRemove";
+
+import ToolService from "../../services/ToolService";
 
 export default function Tools(props) {
   const [tools, setTools] = useState([]);
+  const [tool, setTool] = useState({});
   const [filteredTools, setFilteredTools] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isTagsOnly, setIsTagsOnly] = useState(false);
+  const [modalRemoveOpen, setModalRemoveOpen] = useState(false);
+  const [modalAddOpen, setModalAddOpen] = useState(false);
 
   useEffect(() => {
     fetchTools({});
   }, []);
 
-  const fetchTools = async ({ title = "", tags = "" }) => {
-    let response = (await API.get(`/tools?title=${title}&tags=${tags}`)).data;
+  const fetchTools = async params => {
+    let newTools = await ToolService.fetchTools(params);
 
-    setTools(response);
-    setFilteredTools(response);
+    setTools(newTools);
+    setFilteredTools(newTools);
+  };
+
+  const saveTool = async params => {
+    let newTool = await ToolService.saveTool(params);
+
+    setSearchText("");
+    setIsTagsOnly(false);
+
+    fetchTools({});
+  };
+
+  const removeTool = async params => {
+    let newTool = await ToolService.removeTool(params);
+
+    setSearchText("");
+    setIsTagsOnly(false);
+
+    fetchTools({});
   };
 
   const handleSearchTextChange = event => {
     let newSearchText = event.target.value;
     setSearchText(newSearchText);
 
-    handleFilterTools({ searchText: newSearchText });
+    handleToolsFilter({ tools, searchText: newSearchText, isTagsOnly });
   };
 
   const handleIsTagsOnlyChange = event => {
     let newIsTagsOnly = event.target.checked;
     setIsTagsOnly(newIsTagsOnly);
 
-    handleFilterTools({ searchText, isTagsOnly: newIsTagsOnly });
+    handleToolsFilter({ tools, searchText, isTagsOnly: newIsTagsOnly });
   };
 
-  const handleFilterTools = ({ searchText, isTagsOnly = false }) => {
+  const handleToolsFilter = ({ tools, searchText, isTagsOnly }) => {
     let newFilteredTools = tools.filter(
       tool =>
         (!isTagsOnly &&
@@ -44,6 +69,27 @@ export default function Tools(props) {
     );
 
     setFilteredTools(newFilteredTools);
+  };
+
+  const handleAddClick = () => {
+    setModalAddOpen(true);
+  };
+
+  const handleModalAddConfirm = tool => {
+    saveTool({ data: { ...tool, tags: tool.tags.split(" ") } });
+
+    setModalAddOpen(false);
+  };
+
+  const handleRemoverClick = tool => {
+    setTool(tool);
+    setModalRemoveOpen(true);
+  };
+
+  const handleModalRemoveConfirm = tool => {
+    removeTool({ id: tool.id });
+
+    setModalRemoveOpen(false);
   };
 
   return (
@@ -76,42 +122,37 @@ export default function Tools(props) {
         </div>
 
         <div className="col-2 offset-2">
-          <button type="button" className="btn btn-primary btn-block">
-            + Add
+          <button
+            type="button"
+            className="btn btn-primary btn-block"
+            onClick={e => handleAddClick()}
+          >
+            <i className="fa fa-plus" /> Add
           </button>
         </div>
       </div>
 
+      <ModalAdd
+        modalOpen={modalAddOpen}
+        onConfirm={tool => handleModalAddConfirm(tool)}
+        onCancel={() => setModalAddOpen(false)}
+      />
+
+      <ModalRemove
+        tool={tool}
+        modalOpen={modalRemoveOpen}
+        onConfirm={tool => handleModalRemoveConfirm(tool)}
+        onCancel={() => setModalRemoveOpen(false)}
+      />
+
       {filteredTools.length > 0 &&
         filteredTools.map((tool, index) => (
-          <div className="card my-3" key={tool.id}>
-            <div className="card-body">
-              <a href={tool.link} target="blank">
-                <h4>{tool.title}</h4>
-              </a>
-
-              <p>{tool.description}</p>
-              <div className="form-row">
-                <div className="col-10">
-                  {tool.tags.length > 0 &&
-                    tool.tags.map(tag => (
-                      <span
-                        className="badge badge-pill badge-light mr-2"
-                        key={tag}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                </div>
-
-                <div className="col-2">
-                  <button className="btn btn-sm btn-outline-danger btn-block">
-                    Remover
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Tool
+            key={tool.title + index}
+            tool={tool}
+            index={index}
+            onRemoverClick={tool => handleRemoverClick(tool)}
+          />
         ))}
     </>
   );
