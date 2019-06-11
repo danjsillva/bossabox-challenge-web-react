@@ -22,7 +22,7 @@ export default function Tool(props) {
           <div className="col-2">
             <button
               className="btn btn-sm btn-outline-danger btn-block"
-              onClick={e => props.onRemoverClick(props.tool)}
+              onClick={e => props.onRemoveClick(props.tool)}
             >
               <i className="fa fa-times" /> Remove
             </button>

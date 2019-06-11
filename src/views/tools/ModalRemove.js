@@ -7,7 +7,7 @@ export default function ModalRemove(props) {
         <div className="modal-wrapper card">
           <div className="card-body bt">
             <slot name="body">
-              <h4>
+              <h4 className="font-weight-bold">
                 <i className="fa fa-times mr-3" /> Remove tool
               </h4>
 
@@ -18,7 +18,7 @@ export default function ModalRemove(props) {
               <div className="form-row">
                 <div className="col-3 offset-6">
                   <button
-                    className="btn btn-secondary btn-block"
+                    className="btn btn-outline-primary btn-block"
                     onClick={e => props.onCancel()}
                   >
                     Cancel
