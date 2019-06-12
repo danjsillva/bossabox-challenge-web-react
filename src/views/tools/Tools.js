@@ -27,7 +27,7 @@ export default function Tools(props) {
   };
 
   const saveTool = async params => {
-    let newTool = await ToolService.saveTool(params);
+    await ToolService.saveTool(params);
 
     setSearchText("");
     setIsTagsOnly(false);
@@ -36,7 +36,7 @@ export default function Tools(props) {
   };
 
   const removeTool = async params => {
-    let newTool = await ToolService.removeTool(params);
+    await ToolService.removeTool(params);
 
     setSearchText("");
     setIsTagsOnly(false);

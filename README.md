@@ -1,68 +1,98 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# VUTTR (Very Useful Tools to Remember) ReactJS App
 
-## Available Scripts
+Welcome to **VUTTR ReactJS App**. This app was developed by **Daniel Silva** for the [bossabox](http://bossabox.com) challenge.
 
-In the project directory, you can run:
+NOTE: This document is a **work in progress**.
 
-### `npm start`
+## Overview
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project was developed in [JavaScript](https://www.ecma-international.org) with [ReactJS](https://reactjs.org) framework. That’s uses the [VUTTR API](https://github.com/danjsillva/bossabox-challenge-api).
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Setup
 
-### `npm test`
+You need [NodeJS](https://nodejs.org/en/) and [NPM](https://www.npmjs.com) or [Yarn](https://yarnpkg.com/en/) to run the commands. This guide uses Yarn but NPM do the same.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Recommended versions:
 
-### `npm run build`
+- NodeJS: v10.16.0
+- Yarn: 1.16.0
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running dev server
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+First, run the following command to install the dependencies.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+yarn install
+```
 
-### `npm run eject`
+Now you can start dev server by this command.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### That’s all!
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The terminal returns this message:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+Compiled successfully!
 
-## Learn More
+You can now view desafio-web-react in the browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  Local:            http://localhost:3000/
+  On Your Network:  http://10.0.0.51:3000/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Note that the development build is not optimized.
+To create a production build, use yarn build.
 
-### Code Splitting
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+This command starts the dev server at port 3000 and open your browser on this page. If your browser not open automatically, you can paste the url and it will works.
 
-### Analyzing the Bundle Size
+### Behind the commands
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+This project uses some NodeJS packages beyond the ReactJS. They are:
 
-### Making a Progressive Web App
+- axios: ^0.18.0
+- bootstrap: ^4.3.1
+- node-sass: ^4.12.0
+- react: ^16.8.6
+- react-dom: ^16.8.6
+- react-router-dom: ^5.0.0
+- react-scripts: 3.0.1
+- styled-components: ^4.2.0
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+### Structure of project directories
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```bash
+.
+├── README.md
+├── node_modules
+│   └── *
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+├── src
+│   ├── App.js
+│   ├── App.scss
+│   ├── App.test.js
+│   ├── Router.js
+│   ├── assets
+│   │   └── images
+│   ├── components
+│   ├── config
+│   │   └── api.js
+│   ├── index.js
+│   ├── services
+│   │   └── ToolService.js
+│   └── views
+│       └── tools
+│           ├── ModalAdd.js
+│           ├── ModalRemove.js
+│           ├── Tool.js
+│           └── Tools.js
+└── yarn.lock
+```
